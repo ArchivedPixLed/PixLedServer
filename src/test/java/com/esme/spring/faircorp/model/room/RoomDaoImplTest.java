@@ -17,7 +17,7 @@ import static org.assertj.core.groups.Tuple.tuple;
 public class RoomDaoImplTest {
 
     @Autowired
-    RoomDaoCustom roomDao;
+    RoomDao roomDao;
 
     @Test
     public void shouldFindOnLights() {
@@ -25,5 +25,11 @@ public class RoomDaoImplTest {
                 .hasSize(1)
                 .extracting("id", "floor")
                 .containsExactly(tuple(-10L, 1));
+    }
+
+    @Test
+    public void shouldFindRoomLight() {
+        assertThat(roomDao.roomLightById(-10L)).isTrue();
+        assertThat(roomDao.roomLightById(-9L)).isFalse();
     }
 }
