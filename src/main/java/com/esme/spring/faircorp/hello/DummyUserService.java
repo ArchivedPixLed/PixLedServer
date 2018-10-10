@@ -1,12 +1,25 @@
 package com.esme.spring.faircorp.hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class DummyUserService implements UserService {
 
+    @Autowired
+    private GreetingService greetingService;
+
+
     @Override
     public void greetAll() {
+        ArrayList<String> peopleToGreet = new ArrayList<>();
+        peopleToGreet.add("Elodie");
+        peopleToGreet.add("Charles");
 
+        for (String people : peopleToGreet) {
+            greetingService.greet(people);
+        }
     }
 }

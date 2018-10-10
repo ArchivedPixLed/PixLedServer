@@ -29,7 +29,7 @@ public class DummyUserServiceTest {
     public void testGreetingAll() {
         dummyUserService.greetAll();
         outputCapture.expect(Matchers.stringContainsInOrder(
-                Arrays.asList("Hello, Elodie!", "Hello, Elodie!")
+                Arrays.asList("Hello, Elodie!", "Hello, Charles!")
                 ));
     }
 }
