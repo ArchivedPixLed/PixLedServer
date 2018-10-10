@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-@Qualifier("Primary")
+// @Qualifier("Primary")
 public class ConsoleGreetingService implements GreetingService {
 
     @Override
