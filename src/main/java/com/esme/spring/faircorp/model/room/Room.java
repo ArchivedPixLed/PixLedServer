@@ -18,7 +18,7 @@ public class Room {
     @Column(nullable = false)
     private Integer floor;
 
-    @OneToMany(mappedBy = "light")
+    @OneToMany(mappedBy = "room")
     private List<Light> lights;
 
     public Room(Long id_light, String name, Integer floor, List<Light> lights) {
