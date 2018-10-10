@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Light {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -14,12 +15,16 @@ public class Light {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne()
+    private Room room;
+
     public Light () {
     }
 
-    public Light(Integer level, Status status) {
+    public Light(Integer level, Status status, Room room) {
         this.level = level;
         this.status = status;
+        this.room = room;
     }
 
     public Long getId() {
@@ -44,5 +49,13 @@ public class Light {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
