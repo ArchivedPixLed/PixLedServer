@@ -1,4 +1,6 @@
-package com.esme.spring.faircorp.model;
+package com.esme.spring.faircorp.model.room;
+
+import com.esme.spring.faircorp.model.light.Light;
 
 import javax.persistence.*;
 import java.util.List;
