@@ -1,4 +1,4 @@
-package com.esme.spring.faircorp.model.light;
+package com.esme.spring.faircorp.model.room;
 
 import com.esme.spring.faircorp.model.Status;
 import org.junit.Test;
@@ -14,24 +14,16 @@ import static org.assertj.core.groups.Tuple.tuple;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan
-public class LightDaoImplTest {
+public class RoomDaoImplTest {
 
     @Autowired
-    LightDao lightDao;
+    RoomDaoCustom roomDao;
 
     @Test
     public void shouldFindOnLights() {
-        assertThat(lightDao.findOnLights())
+        assertThat(roomDao.findByName("Room1"))
                 .hasSize(1)
-                .extracting("id", "status")
-                .containsExactly(tuple(-1L, Status.ON));
-    }
-
-    @Test
-    public void shouldFindRoomLights() {
-        assertThat(lightDao.findByRoomId(-10L))
-                .hasSize(2)
-                .extracting("id")
-                .contains(-1L, -2L);
+                .extracting("id", "floor")
+                .containsExactly(tuple(-10L, 1));
     }
 }
