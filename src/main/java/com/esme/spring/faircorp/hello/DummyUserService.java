@@ -1,6 +1,7 @@
 package com.esme.spring.faircorp.hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class DummyUserService implements UserService {
 
     @Autowired
+    @Qualifier("Another")
     private GreetingService greetingService;
 
 
