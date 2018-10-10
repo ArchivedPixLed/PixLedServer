@@ -10,7 +10,7 @@ public class Room {
 
     @Id
     @GeneratedValue
-    private Long id_light;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -21,19 +21,19 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Light> lights;
 
-    public Room(Long id_light, String name, Integer floor, List<Light> lights) {
-        this.id_light = id_light;
+    public Room(Long id, String name, Integer floor, List<Light> lights) {
+        this.id = id;
         this.name = name;
         this.floor = floor;
         this.lights = lights;
     }
 
-    public Long getId_light() {
-        return id_light;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_light(Long id_light) {
-        this.id_light = id_light;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
