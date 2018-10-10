@@ -21,6 +21,9 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Light> lights;
 
+    public Room() {
+    }
+
     public Room(Long id, String name, Integer floor, List<Light> lights) {
         this.id = id;
         this.name = name;
