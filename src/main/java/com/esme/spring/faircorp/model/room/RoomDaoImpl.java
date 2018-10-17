@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class RoomDaoImpl implements  RoomDaoCustom {
+public class RoomDaoImpl implements RoomDaoCustom {
 
     @Autowired
     private LightDao lightDao;
