@@ -1,7 +1,7 @@
-package com.esme.spring.faircorp.model.building;
+package com.esme.spring.faircorp.model.building.dao;
 
 import com.esme.spring.faircorp.model.light.Light;
-import com.esme.spring.faircorp.model.light.LightDao;
+import com.esme.spring.faircorp.model.light.dao.LightDao;
 import com.esme.spring.faircorp.model.room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,6 +1,7 @@
-package com.esme.spring.faircorp.model.light;
+package com.esme.spring.faircorp.model.light.dao;
 
 import com.esme.spring.faircorp.model.Status;
+import com.esme.spring.faircorp.model.light.Light;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

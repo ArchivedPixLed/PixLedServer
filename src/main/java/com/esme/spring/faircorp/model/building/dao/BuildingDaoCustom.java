@@ -1,4 +1,4 @@
-package com.esme.spring.faircorp.model.building;
+package com.esme.spring.faircorp.model.building.dao;
 
 import com.esme.spring.faircorp.model.light.Light;
 

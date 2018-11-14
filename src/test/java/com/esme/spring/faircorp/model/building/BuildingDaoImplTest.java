@@ -1,5 +1,6 @@
 package com.esme.spring.faircorp.model.building;
 
+import com.esme.spring.faircorp.model.building.dao.BuildingDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

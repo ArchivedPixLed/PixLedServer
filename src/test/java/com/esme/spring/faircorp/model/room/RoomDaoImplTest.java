@@ -1,6 +1,6 @@
 package com.esme.spring.faircorp.model.room;
 
-import com.esme.spring.faircorp.model.Status;
+import com.esme.spring.faircorp.model.room.dao.RoomDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

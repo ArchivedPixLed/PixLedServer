@@ -1,6 +1,7 @@
 package com.esme.spring.faircorp.model.light;
 
 import com.esme.spring.faircorp.model.Status;
+import com.esme.spring.faircorp.model.light.dao.LightDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
