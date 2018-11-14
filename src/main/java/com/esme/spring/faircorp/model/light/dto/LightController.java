@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController  // (1)
-@RequestMapping("/api/lights") // (2)
-@Transactional // (3)
+@RestController
+@RequestMapping("/api/lights")
+@Transactional
 public class LightController {
 
     @Autowired
-    private LightDao lightDao; // (4)
+    private LightDao lightDao;
     @Autowired
     private RoomDao roomDao;
 
