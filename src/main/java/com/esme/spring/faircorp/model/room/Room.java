@@ -4,6 +4,7 @@ import com.esme.spring.faircorp.model.building.Building;
 import com.esme.spring.faircorp.model.light.Light;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Room {
     @Column(nullable = false)
     private Integer floor;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE)
     private List<Light> lights;
 
     @ManyToOne
@@ -28,8 +29,11 @@ public class Room {
     public Room() {
     }
 
-    public Room(Long id, String name, Integer floor, List<Light> lights, Building building) {
-        this.id = id;
+    public Room(String name, Integer floor, Building building) {
+        this(name, floor, new ArrayList<>(), building);
+    }
+
+    public Room(String name, Integer floor, List<Light> lights, Building building) {
         this.name = name;
         this.floor = floor;
         this.lights = lights;

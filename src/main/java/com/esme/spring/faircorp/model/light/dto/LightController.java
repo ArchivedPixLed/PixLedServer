@@ -22,7 +22,7 @@ public class LightController {
     private RoomDao roomDao;
 
 
-    @GetMapping // (5)
+    @GetMapping
     public List<LightDto> findAll() {
         return lightDao.findAll()
                 .stream()
@@ -52,8 +52,12 @@ public class LightController {
         if (light == null) {
             light = lightDao.save(new Light(dto.getLevel(), dto.getStatus(), roomDao.getOne(dto.getRoomId())));
         } else {
-            light.setLevel(dto.getLevel());
-            light.setStatus(dto.getStatus());
+            if (dto.getLevel() != null) {
+                light.setLevel(dto.getLevel());
+            }
+            if (dto.getStatus() != null) {
+                light.setStatus(dto.getStatus());
+            }
             lightDao.save(light);
         }
 
