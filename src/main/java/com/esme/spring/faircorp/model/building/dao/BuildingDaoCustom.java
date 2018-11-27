@@ -1,6 +1,7 @@
 package com.esme.spring.faircorp.model.building.dao;
 
 import com.esme.spring.faircorp.model.light.Light;
+import com.esme.spring.faircorp.model.room.Room;
 
 import java.util.List;
 

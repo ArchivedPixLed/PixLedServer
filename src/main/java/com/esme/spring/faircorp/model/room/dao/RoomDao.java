@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RoomDao extends JpaRepository<Room, Long>, RoomDaoCustom {
     List<Room> findByName(String name);
+    List<Room> findByBuildingId(Long id);
 }

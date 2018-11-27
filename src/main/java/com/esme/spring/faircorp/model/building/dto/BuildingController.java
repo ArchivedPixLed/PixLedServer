@@ -3,6 +3,7 @@ package com.esme.spring.faircorp.model.building.dto;
 import com.esme.spring.faircorp.model.building.Building;
 import com.esme.spring.faircorp.model.building.dao.BuildingDao;
 import com.esme.spring.faircorp.model.room.dao.RoomDao;
+import com.esme.spring.faircorp.model.room.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ public class BuildingController {
 
     @Autowired
     private BuildingDao buildingDao;
+    @Autowired
+    private RoomDao roomDao;
 
     @GetMapping
     public List<BuildingDto> findAll() {
@@ -29,7 +32,17 @@ public class BuildingController {
 
     @GetMapping(path = "/{id}")
     public BuildingDto findById(@PathVariable Long id) {
-        return buildingDao.findById(id).map(building -> new BuildingDto(building)).orElse(null);
+        return buildingDao.findById(id)
+                .map(building -> new BuildingDto(building))
+                .orElse(null);
+    }
+
+    @GetMapping(path = "/{id}/rooms")
+    public List<RoomDto> findBuildingRooms(@PathVariable Long id) {
+        return roomDao.findByBuildingId(id)
+                .stream()
+                .map(room -> new RoomDto(room))
+                .collect(Collectors.toList());
     }
 
     @PostMapping
