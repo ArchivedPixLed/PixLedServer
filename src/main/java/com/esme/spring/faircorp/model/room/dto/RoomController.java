@@ -4,6 +4,7 @@ import com.esme.spring.faircorp.model.Status;
 import com.esme.spring.faircorp.model.building.dao.BuildingDao;
 import com.esme.spring.faircorp.model.light.Light;
 import com.esme.spring.faircorp.model.light.dao.LightDao;
+import com.esme.spring.faircorp.model.light.dto.LightDto;
 import com.esme.spring.faircorp.model.room.Room;
 import com.esme.spring.faircorp.model.room.dao.RoomDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/rooms")
 @Transactional
 public class RoomController {
@@ -36,6 +38,11 @@ public class RoomController {
     @GetMapping(path = "/{id}")
     public RoomDto findById(@PathVariable Long id) {
         return roomDao.findById(id).map(room -> new RoomDto(room)).orElse(null);
+    }
+
+    @GetMapping(path = "/{id}/lights")
+    public List<LightDto> findRoomLightsByid(@PathVariable Long id) {
+        return lightDao.findByRoomId(id).stream().map(light -> new LightDto(light)).collect(Collectors.toList());
     }
 
     @PutMapping(path = "/{id}/switchLight")

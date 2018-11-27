@@ -15,7 +15,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -37,10 +36,6 @@ public class TestLightApi {
                 = restTemplate.getForEntity("http://localhost:" + port + "/api/lights", String.class);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
-        JsonNode id = root.get("id");
-        JsonNode level = root.get("level");
-        JsonNode status = root.path("id");
-        JsonNode roomId = root.path("roomId");
         Assertions.assertThat(root).isNotEmpty();
     }
 

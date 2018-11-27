@@ -32,4 +32,17 @@ public class TestRoomApi {
         restTemplate.put("http://localhost:" + port + "/api/rooms/-10/switchLight", String.class);
         Assertions.assertThat(roomDao.roomLightById(-10L)).isTrue();
     }
+
+    @Test
+    public void testGetRoomLights() throws Exception {
+        ResponseEntity<String> response
+                = restTemplate.getForEntity("http://localhost:" + port + "/api/rooms/-10/lights", String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(response.getBody());
+        JsonNode id = root.get("id");
+        JsonNode level = root.get("level");
+        JsonNode status = root.path("id");
+        JsonNode roomId = root.path("roomId");
+        Assertions.assertThat(root).isNotEmpty();
+    }
 }
