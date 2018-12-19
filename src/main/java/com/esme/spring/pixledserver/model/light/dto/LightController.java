@@ -39,7 +39,9 @@ public class LightController {
     @PutMapping(path = "/{id}/switch")
     public LightDto switchStatus(@PathVariable Long id) {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        light.setStatus(light.getStatus() == Status.ON ? Status.OFF: Status.ON);
+        light.switchLight();
+        lightDao.save(light);
+        roomDao.save(light.getRoom());
         return new LightDto(light);
     }
 

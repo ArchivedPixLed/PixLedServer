@@ -102,6 +102,7 @@ public class Room {
             if (lights.get(i).getStatus() == Status.ON) {
                 status = Status.ON;
             }
+            i++;
         }
         this.status = status;
     }
