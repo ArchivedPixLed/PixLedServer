@@ -27,9 +27,9 @@ public class TestRoomApi {
 
     @Test
     public void testSwitchLights() throws Exception {
-        restTemplate.put("http://localhost:" + port + "/api/rooms/-10/switchLight", String.class);
+        restTemplate.put("http://localhost:" + port + "/api/rooms/-10/switch", String.class);
         Assertions.assertThat(roomDao.roomLightById(-10L)).isFalse();
-        restTemplate.put("http://localhost:" + port + "/api/rooms/-10/switchLight", String.class);
+        restTemplate.put("http://localhost:" + port + "/api/rooms/-10/switch", String.class);
         Assertions.assertThat(roomDao.roomLightById(-10L)).isTrue();
     }
 

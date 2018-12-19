@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,23 +50,30 @@ public class RoomController {
     }
 
     @PutMapping(path = "/{id}/switch")
-    public RoomDto switchLight(@PathVariable Long id) {
+    public List<LightDto> switchLight(@PathVariable Long id) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        if(roomDao.roomLightById(room.getId())){
-            for (Light light : room.getLights()){
-                if (light.getStatus() == Status.ON) {
-                    light.setStatus(Status.OFF);
-                    lightDao.save(light);
-                }
-            }
+//        if(roomDao.roomLightById(room.getId())){
+//            for (Light light : room.getLights()){
+//                if (light.getStatus() == Status.ON) {
+//                    light.setStatus(Status.OFF);
+//                    lightDao.save(light);
+//                }
+//            }
+//        }
+//        else {
+//            for (Light light : room.getLights()){
+//                light.setStatus(Status.ON);
+//                lightDao.save(light);
+//            }
+//        }
+        room.switchRoom();
+        roomDao.save(room);
+        ArrayList<LightDto> lightDtos = new ArrayList<>();
+        for (Light light : room.getLights()) {
+            lightDao.save(light);
+            lightDtos.add(new LightDto(light));
         }
-        else {
-            for (Light light : room.getLights()){
-                light.setStatus(Status.ON);
-                lightDao.save(light);
-            }
-        }
-        return new RoomDto(room);
+        return lightDtos;
     }
 
     @PostMapping

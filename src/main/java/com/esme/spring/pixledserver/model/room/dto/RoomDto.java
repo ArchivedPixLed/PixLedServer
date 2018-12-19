@@ -1,5 +1,6 @@
 package com.esme.spring.pixledserver.model.room.dto;
 
+import com.esme.spring.pixledserver.model.Status;
 import com.esme.spring.pixledserver.model.room.Room;
 
 public class RoomDto {
@@ -8,6 +9,7 @@ public class RoomDto {
     private String name;
     private Integer floor;
     private Long buildingId;
+    private String status;
 
     public RoomDto(){
     }
@@ -17,6 +19,7 @@ public class RoomDto {
         this.name = room.getName();
         this.floor = room.getFloor();
         this.buildingId = room.getBuilding().getId();
+        this.status = room.getStatus() == Status.ON ? "ON" : "OFF";
     }
 
     public Long getId() {
@@ -33,5 +36,9 @@ public class RoomDto {
 
     public Long getBuildingId() {
         return buildingId;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

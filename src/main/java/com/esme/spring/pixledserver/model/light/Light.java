@@ -61,4 +61,9 @@ public class Light {
     public void setRoom(Room room) {
         this.room = room;
     }
+
+    public void switchLight() {
+        this.status = (this.status == Status.ON) ? Status.OFF : Status.ON;
+        room.updateStatus();
+    }
 }

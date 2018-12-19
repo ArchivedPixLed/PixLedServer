@@ -1,5 +1,6 @@
 package com.esme.spring.pixledserver.model.room;
 
+import com.esme.spring.pixledserver.model.Status;
 import com.esme.spring.pixledserver.model.building.Building;
 import com.esme.spring.pixledserver.model.light.Light;
 
@@ -20,24 +21,29 @@ public class Room {
     @Column(nullable = false)
     private Integer floor;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE)
     private List<Light> lights;
 
     @ManyToOne
     private Building building;
 
+
     public Room() {
     }
 
     public Room(String name, Integer floor, Building building) {
-        this(name, floor, new ArrayList<>(), building);
+        this(name, floor, Status.OFF, new ArrayList<>(), building);
     }
 
-    public Room(String name, Integer floor, List<Light> lights, Building building) {
+    public Room(String name, Integer floor, Status status, List<Light> lights, Building building) {
         this.name = name;
         this.floor = floor;
         this.lights = lights;
         this.building = building;
+        this.status = status;
     }
 
     public Long getId() {
@@ -70,6 +76,7 @@ public class Room {
 
     public void setLights(List<Light> lights) {
         this.lights = lights;
+        updateStatus();
     }
 
     public Building getBuilding() {
@@ -78,5 +85,31 @@ public class Room {
 
     public void setBuilding(Building building) {
         this.building = building;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void updateStatus() {
+        Status status = Status.OFF;
+        int i = 0;
+        while (status == Status.OFF && i < lights.size()) {
+            if (lights.get(i).getStatus() == Status.ON) {
+                status = Status.ON;
+            }
+        }
+        this.status = status;
+    }
+
+    public void switchRoom() {
+        this.status = (this.status == Status.ON) ? Status.OFF : Status.ON;
+        for (Light light : lights) {
+            light.setStatus(this.status);
+        }
     }
 }
