@@ -21,6 +21,9 @@ public class Light {
     @ManyToOne()
     private Room room;
 
+    @Column(nullable = false)
+    private Integer color;
+
     public Light () {
     }
 
@@ -60,6 +63,14 @@ public class Light {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public Integer getColor() {
+        return color;
+    }
+
+    public void setColor(Integer color) {
+        this.color = color;
     }
 
     public void switchLight() {

@@ -7,6 +7,7 @@ public class LightDto {
     private Long id;
     private Integer level;
     private Status status;
+    private Integer color;
     private Long roomId;
 
     public LightDto() {
@@ -16,6 +17,7 @@ public class LightDto {
         this.id = light.getId();
         this.level = light.getLevel();
         this.status = light.getStatus();
+        this.color = light.getColor();
         this.roomId = light.getRoom().getId();
     }
 
@@ -29,6 +31,10 @@ public class LightDto {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Integer getColor() {
+        return color;
     }
 
     public Long getRoomId() {

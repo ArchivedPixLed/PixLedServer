@@ -45,6 +45,14 @@ public class LightController {
         return new LightDto(light);
     }
 
+    @PutMapping(path = "/{id}/color")
+    public LightDto changeColor(@PathVariable Long id, @RequestBody String color) {
+        Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        light.setColor(Integer.parseInt(color));
+        lightDao.save(light);
+        return new LightDto(light);
+    }
+
     @PostMapping
     public LightDto create(@RequestBody LightDto dto) {
         Light light = null;
