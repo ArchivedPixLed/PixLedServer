@@ -3,7 +3,6 @@ package com.esme.spring.pixledserver.mqtt;
 import com.esme.spring.pixledserver.model.Status;
 import com.esme.spring.pixledserver.model.light.Light;
 import com.esme.spring.pixledserver.model.light.dao.LightDao;
-import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
