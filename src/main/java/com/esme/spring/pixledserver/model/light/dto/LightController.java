@@ -22,8 +22,8 @@ public class LightController {
     private LightDao lightDao;
     @Autowired
     private RoomDao roomDao;
-    @Autowired
-    private MqttConnection mqttConnection;
+//    @Autowired
+//    private MqttConnection mqttConnection;
 
 
     @GetMapping
@@ -45,11 +45,11 @@ public class LightController {
         light.switchLight();
         lightDao.save(light);
         roomDao.save(light.getRoom());
-        mqttConnection.publishSwitch(
-                light.getRoom().getBuilding().getId(),
-                light.getRoom().getId(),
-                light.getId(),
-                light.getStatus());
+//        mqttConnection.publishSwitch(
+//                light.getRoom().getBuilding().getId(),
+//                light.getRoom().getId(),
+//                light.getId(),
+//                light.getStatus());
         return new LightDto(light);
     }
 
@@ -60,11 +60,11 @@ public class LightController {
         light.setSaturation(color.getSaturation());
         light.setValue(color.getValue());
         lightDao.save(light);
-        mqttConnection.publishColor(
-                light.getRoom().getBuilding().getId(),
-                light.getRoom().getId(),
-                light.getId(),
-                color.getArgb().toString());
+//        mqttConnection.publishColor(
+//                light.getRoom().getBuilding().getId(),
+//                light.getRoom().getId(),
+//                light.getId(),
+//                color.getArgb().toString());
 
         return new LightDto(light);
     }
