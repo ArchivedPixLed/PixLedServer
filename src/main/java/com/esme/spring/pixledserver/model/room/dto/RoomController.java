@@ -7,6 +7,7 @@ import com.esme.spring.pixledserver.model.light.dao.LightDao;
 import com.esme.spring.pixledserver.model.light.dto.LightDto;
 import com.esme.spring.pixledserver.model.room.Room;
 import com.esme.spring.pixledserver.model.room.dao.RoomDao;
+import com.esme.spring.pixledserver.mqtt.MqttConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,8 @@ public class RoomController {
     RoomDao roomDao;
     @Autowired
     BuildingDao buildingDao;
+    @Autowired
+    private MqttConnection mqttConnection;
 
     @GetMapping
     public List<RoomDto> findAll() {
@@ -72,6 +75,11 @@ public class RoomController {
         for (Light light : room.getLights()) {
             lightDao.save(light);
             lightDtos.add(new LightDto(light));
+            mqttConnection.publishSwitch(
+                    room.getBuilding().getId(),
+                    room.getId(),
+                    light.getId(),
+                    light.getStatus());
         }
         return lightDtos;
     }

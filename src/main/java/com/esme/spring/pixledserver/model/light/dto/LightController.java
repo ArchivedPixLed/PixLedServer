@@ -4,6 +4,7 @@ import com.esme.spring.pixledserver.model.Status;
 import com.esme.spring.pixledserver.model.light.Light;
 import com.esme.spring.pixledserver.model.light.dao.LightDao;
 import com.esme.spring.pixledserver.model.room.dao.RoomDao;
+import com.esme.spring.pixledserver.mqtt.MqttConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ public class LightController {
     private LightDao lightDao;
     @Autowired
     private RoomDao roomDao;
+    @Autowired
+    private MqttConnection mqttConnection;
 
 
     @GetMapping
@@ -42,14 +45,27 @@ public class LightController {
         light.switchLight();
         lightDao.save(light);
         roomDao.save(light.getRoom());
+        mqttConnection.publishSwitch(
+                light.getRoom().getBuilding().getId(),
+                light.getRoom().getId(),
+                light.getId(),
+                light.getStatus());
         return new LightDto(light);
     }
 
     @PutMapping(path = "/{id}/color")
-    public LightDto changeColor(@PathVariable Long id, @RequestBody String color) {
+    public LightDto changeColor(@PathVariable Long id, @RequestBody ColorDto color) {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        light.setColor(Integer.parseInt(color));
+        light.setHue(color.getHue());
+        light.setSaturation(color.getSaturation());
+        light.setValue(color.getValue());
         lightDao.save(light);
+        mqttConnection.publishColor(
+                light.getRoom().getBuilding().getId(),
+                light.getRoom().getId(),
+                light.getId(),
+                color.getArgb().toString());
+
         return new LightDto(light);
     }
 

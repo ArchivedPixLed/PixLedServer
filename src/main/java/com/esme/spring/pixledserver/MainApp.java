@@ -1,5 +1,6 @@
 package com.esme.spring.pixledserver;
 
+import com.esme.spring.pixledserver.mqtt.MqttConnection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

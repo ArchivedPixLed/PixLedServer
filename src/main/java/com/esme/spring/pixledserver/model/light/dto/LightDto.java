@@ -2,12 +2,17 @@ package com.esme.spring.pixledserver.model.light.dto;
 
 import com.esme.spring.pixledserver.model.Status;
 import com.esme.spring.pixledserver.model.light.Light;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class LightDto {
     private Long id;
     private Integer level;
     private Status status;
-    private Integer color;
+    private Float hue;
+    private Float saturation;
+    private Float value;
+    private Boolean connected;
+
     private Long roomId;
 
     public LightDto() {
@@ -17,8 +22,11 @@ public class LightDto {
         this.id = light.getId();
         this.level = light.getLevel();
         this.status = light.getStatus();
-        this.color = light.getColor();
+        this.hue = light.getHue();
+        this.saturation = light.getSaturation();
+        this.value = light.getValue();
         this.roomId = light.getRoom().getId();
+        this.connected = light.getConnected();
     }
 
     public Long getId() {
@@ -33,11 +41,23 @@ public class LightDto {
         return status;
     }
 
-    public Integer getColor() {
-        return color;
+    public Float getHue() {
+        return hue;
+    }
+
+    public Float getSaturation() {
+        return saturation;
+    }
+
+    public Float getValue() {
+        return value;
     }
 
     public Long getRoomId() {
         return roomId;
+    }
+
+    public Boolean getConnected() {
+        return connected;
     }
 }

@@ -2,6 +2,7 @@ package com.esme.spring.pixledserver.model.light;
 
 import com.esme.spring.pixledserver.model.room.Room;
 import com.esme.spring.pixledserver.model.Status;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.*;
 
@@ -22,7 +23,16 @@ public class Light {
     private Room room;
 
     @Column(nullable = false)
-    private Integer color;
+    private Float hue;
+
+    @Column(nullable = false)
+    private Float saturation;
+
+    @Column(nullable = false)
+    private Float value;
+
+    @Column
+    private Boolean connected;
 
     public Light () {
     }
@@ -65,12 +75,36 @@ public class Light {
         this.room = room;
     }
 
-    public Integer getColor() {
-        return color;
+    public Float getHue() {
+        return hue;
     }
 
-    public void setColor(Integer color) {
-        this.color = color;
+    public void setHue(Float hue) {
+        this.hue = hue;
+    }
+
+    public Float getSaturation() {
+        return saturation;
+    }
+
+    public void setSaturation(Float saturation) {
+        this.saturation = saturation;
+    }
+
+    public Float getValue() {
+        return value;
+    }
+
+    public void setValue(Float value) {
+        this.value = value;
+    }
+
+    public Boolean getConnected() {
+        return connected;
+    }
+
+    public void setConnected(Boolean connected) {
+        this.connected = connected;
     }
 
     public void switchLight() {
