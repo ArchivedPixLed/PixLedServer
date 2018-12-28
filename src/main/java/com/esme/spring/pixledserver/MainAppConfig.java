@@ -23,38 +23,47 @@ import org.springframework.messaging.MessagingException;
 @Configuration
 public class MainAppConfig {
 
+
+
     @Autowired
-    private MqttConnectionHandler mqttConnectionHandler;
-
-    @Bean
-    public MessageChannel mqttInputChannel() {
-        return new DirectChannel();
+    public MainAppConfig(MqttConnection mqttConnection) {
+        System.out.println("Instantiating config");
+        System.out.println(mqttConnection == null);
+        mqttConnection.connect();
     }
 
-    @Bean
-    public MessageProducer inbound() {
-        MqttPahoMessageDrivenChannelAdapter adapter =
-                new MqttPahoMessageDrivenChannelAdapter("tcp://localhost:1883", "PixLedServer",
-                        "module_connected");
-        adapter.setCompletionTimeout(5000);
-        adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(1);
-        adapter.setOutputChannel(mqttInputChannel());
-        return adapter;
-    }
+//    @Autowired
+//    private MqttConnectionHandler mqttConnectionHandler;
 
-    @Bean
-    @ServiceActivator(inputChannel = "mqttInputChannel")
-    public MessageHandler handler() {
-        return new MessageHandler() {
-            @Override
-            public void handleMessage(Message<?> message) throws MessagingException {
-                System.out.println(message.getPayload());
-                mqttConnectionHandler.handle(message);
-            }
-
-        };
-    }
+//    @Bean
+//    public MessageChannel mqttInputChannel() {
+//        return new DirectChannel();
+//    }
+//
+//    @Bean
+//    public MessageProducer inbound() {
+//        MqttPahoMessageDrivenChannelAdapter adapter =
+//                new MqttPahoMessageDrivenChannelAdapter("tcp://localhost:1883", "PixLedServer",
+//                        "module_connected");
+//        adapter.setCompletionTimeout(5000);
+//        adapter.setConverter(new DefaultPahoMessageConverter());
+//        adapter.setQos(1);
+//        adapter.setOutputChannel(mqttInputChannel());
+//        return adapter;
+//    }
+//
+//    @Bean
+//    @ServiceActivator(inputChannel = "mqttInputChannel")
+//    public MessageHandler handler() {
+//        return new MessageHandler() {
+//            @Override
+//            public void handleMessage(Message<?> message) throws MessagingException {
+//                System.out.println(message.getPayload());
+//                mqttConnectionHandler.handle(message);
+//            }
+//
+//        };
+//    }
 
 //    @Bean
 //    public MqttConnection mqttConnection() {

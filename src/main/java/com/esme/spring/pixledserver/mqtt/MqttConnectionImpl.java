@@ -1,21 +1,20 @@
 package com.esme.spring.pixledserver.mqtt;
 
 import com.esme.spring.pixledserver.model.Status;
-import com.esme.spring.pixledserver.model.light.Light;
-import com.esme.spring.pixledserver.model.light.dao.LightDao;
+import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+@Component
+public class MqttConnectionImpl implements MqttConnection {
 
-public class MqttConnectionImpl implements MqttConnection{
+    @Autowired
+    MqttConnectionHandler mqttConnectionHandler;
 
     private IMqttClient client;
-    private String clientId;
+    private static final String clientId = "PixLedServer";
 
     public MqttConnectionImpl() {
-        clientId = "PixLedServer-" + UUID.randomUUID();
     }
 
     @Override
@@ -31,6 +30,14 @@ public class MqttConnectionImpl implements MqttConnection{
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
+        try {
+            client.subscribe(connected_topic, 1, mqttConnectionHandler);
+            client.subscribe(connected_topic, 1, mqttConnectionHandler);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

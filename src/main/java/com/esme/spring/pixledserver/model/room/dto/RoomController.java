@@ -28,8 +28,8 @@ public class RoomController {
     RoomDao roomDao;
     @Autowired
     BuildingDao buildingDao;
-//    @Autowired
-//    private MqttConnection mqttConnection;
+    @Autowired
+    private MqttConnection mqttConnection;
 
     @GetMapping
     public List<RoomDto> findAll() {
@@ -75,11 +75,11 @@ public class RoomController {
         for (Light light : room.getLights()) {
             lightDao.save(light);
             lightDtos.add(new LightDto(light));
-//            mqttConnection.publishSwitch(
-//                    room.getBuilding().getId(),
-//                    room.getId(),
-//                    light.getId(),
-//                    light.getStatus());
+            mqttConnection.publishSwitch(
+                    room.getBuilding().getId(),
+                    room.getId(),
+                    light.getId(),
+                    light.getStatus());
         }
         return lightDtos;
     }
