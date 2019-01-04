@@ -60,31 +60,35 @@ public class MqttConnectionImpl implements MqttConnection {
 
     @Override
     public void publishColor(long buildingId, long roomId, long lightId, String color) {
-        String topic = "/buildings/" + buildingId + "/rooms/" + roomId + "/lights/" + lightId + "/color";
-        byte[] payload = color.getBytes();
-        logger.info("Publish " + payload + " to " + topic);
-        MqttMessage msg = new MqttMessage(payload);
-        msg.setQos(1);
-        msg.setRetained(true);
-        try {
-            client.publish(topic, msg);
-        } catch (MqttException e) {
-            e.printStackTrace();
+        if (client.isConnected()) {
+            String topic = "/buildings/" + buildingId + "/rooms/" + roomId + "/lights/" + lightId + "/color";
+            byte[] payload = color.getBytes();
+            logger.info("Publish " + payload + " to " + topic);
+            MqttMessage msg = new MqttMessage(payload);
+            msg.setQos(1);
+            msg.setRetained(true);
+            try {
+                client.publish(topic, msg);
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void publishSwitch(long buildingId, long roomId, long lightId, Status status) {
-        String topic = "/buildings/" + buildingId + "/rooms/" + roomId + "/lights/" + lightId + "/switch";
-        byte[] payload = status.name().getBytes();
-        logger.info("Publish " + status.name() + " to " + topic);
-        MqttMessage msg = new MqttMessage(payload);
-        msg.setQos(1);
-        msg.setRetained(true);
-        try {
-            client.publish(topic, msg);
-        } catch (MqttException e) {
-            e.printStackTrace();
+        if (client.isConnected()) {
+            String topic = "/buildings/" + buildingId + "/rooms/" + roomId + "/lights/" + lightId + "/switch";
+            byte[] payload = status.name().getBytes();
+            logger.info("Publish " + status.name() + " to " + topic);
+            MqttMessage msg = new MqttMessage(payload);
+            msg.setQos(1);
+            msg.setRetained(true);
+            try {
+                client.publish(topic, msg);
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
