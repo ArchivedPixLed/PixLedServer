@@ -1,16 +1,45 @@
-package com.esme.spring.pixledserver.model.light;
+package com.esme.spring.pixledserver.model.color;
 
+import com.esme.spring.pixledserver.model.light.Light;
+
+import javax.persistence.*;
+
+@Entity
 public class Color {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private Float hue;
+
+    @Column
     private Float saturation;
+
+    @Column
     private Float value;
+
+    @Column
     private Integer argb;
+
+    public Color(){
+
+    }
 
     public Color(Float hue, Float saturation, Float value, Integer argb) {
         this.hue = hue;
         this.saturation = saturation;
         this.value = value;
         this.argb = argb;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Float getHue() {

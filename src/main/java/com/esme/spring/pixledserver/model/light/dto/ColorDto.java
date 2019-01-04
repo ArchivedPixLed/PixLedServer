@@ -1,6 +1,6 @@
 package com.esme.spring.pixledserver.model.light.dto;
 
-import com.esme.spring.pixledserver.model.light.Color;
+import com.esme.spring.pixledserver.model.color.Color;
 
 public class ColorDto {
     private Float hue;

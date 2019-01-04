@@ -22,9 +22,9 @@ public class LightDto {
         this.id = light.getId();
         this.level = light.getLevel();
         this.status = light.getStatus();
-        this.hue = light.getHue();
-        this.saturation = light.getSaturation();
-        this.value = light.getValue();
+        this.hue = light.getColor().getHue();
+        this.saturation = light.getColor().getSaturation();
+        this.value = light.getColor().getValue();
         this.roomId = light.getRoom().getId();
         this.connected = light.getConnected();
     }

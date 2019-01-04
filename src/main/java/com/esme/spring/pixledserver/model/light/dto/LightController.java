@@ -1,6 +1,7 @@
 package com.esme.spring.pixledserver.model.light.dto;
 
 import com.esme.spring.pixledserver.model.Status;
+import com.esme.spring.pixledserver.model.color.dao.ColorDao;
 import com.esme.spring.pixledserver.model.light.Light;
 import com.esme.spring.pixledserver.model.light.dao.LightDao;
 import com.esme.spring.pixledserver.model.room.dao.RoomDao;
@@ -20,6 +21,8 @@ public class LightController {
 
     @Autowired
     private LightDao lightDao;
+    @Autowired
+    private ColorDao colorDao;
     @Autowired
     private RoomDao roomDao;
     @Autowired
@@ -56,10 +59,11 @@ public class LightController {
     @PutMapping(path = "/{id}/color")
     public LightDto changeColor(@PathVariable Long id, @RequestBody ColorDto color) {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        light.setHue(color.getHue());
-        light.setSaturation(color.getSaturation());
-        light.setValue(color.getValue());
-        lightDao.save(light);
+        light.getColor().setHue(color.getHue());
+        light.getColor().setSaturation(color.getSaturation());
+        light.getColor().setValue(color.getValue());
+        light.getColor().setArgb(color.getArgb());
+        colorDao.save(light.getColor());
         mqttConnection.publishColor(
                 light.getRoom().getBuilding().getId(),
                 light.getRoom().getId(),

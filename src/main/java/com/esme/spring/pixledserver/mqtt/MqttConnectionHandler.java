@@ -14,6 +14,9 @@ public class MqttConnectionHandler implements IMqttMessageListener {
     @Autowired
     private LightDao lightDao;
 
+    @Autowired
+    private MqttConnection mqttConnection;
+
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         Long id = Long.valueOf(message.toString());
@@ -22,6 +25,23 @@ public class MqttConnectionHandler implements IMqttMessageListener {
         if (light != null) {
             if (topic.equals(MqttConnection.connected_topic)) {
                 light.setConnected(true);
+                lightDao.save(light);
+
+                mqttConnection.publishSwitch(
+                        light.getRoom().getBuilding().getId(),
+                        light.getRoom().getId(),
+                        light.getId(),
+                        light.getStatus()
+                );
+
+                System.out.println(light.getColor().getArgb());
+                mqttConnection.publishColor(
+                        light.getRoom().getBuilding().getId(),
+                        light.getRoom().getId(),
+                        light.getId(),
+                        light.getColor().getArgb().toString()
+                );
+
             } else if (topic.equals(MqttConnection.disconnected_topic)) {
                 light.setConnected(false);
             }

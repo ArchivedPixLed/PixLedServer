@@ -1,8 +1,10 @@
 package com.esme.spring.pixledserver.model.light;
 
+import com.esme.spring.pixledserver.model.color.Color;
+import com.esme.spring.pixledserver.model.color.dao.ColorDao;
 import com.esme.spring.pixledserver.model.room.Room;
 import com.esme.spring.pixledserver.model.Status;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -23,16 +25,11 @@ public class Light {
     private Room room;
 
     @Column(nullable = false)
-    private Float hue;
-
-    @Column(nullable = false)
-    private Float saturation;
-
-    @Column(nullable = false)
-    private Float value;
-
-    @Column
     private Boolean connected;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn()
+    private Color color;
 
     public Light () {
     }
@@ -75,28 +72,8 @@ public class Light {
         this.room = room;
     }
 
-    public Float getHue() {
-        return hue;
-    }
-
-    public void setHue(Float hue) {
-        this.hue = hue;
-    }
-
-    public Float getSaturation() {
-        return saturation;
-    }
-
-    public void setSaturation(Float saturation) {
-        this.saturation = saturation;
-    }
-
-    public Float getValue() {
-        return value;
-    }
-
-    public void setValue(Float value) {
-        this.value = value;
+    public Color getColor() {
+        return color;
     }
 
     public Boolean getConnected() {
