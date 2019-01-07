@@ -1,6 +1,7 @@
 package com.esme.spring.pixledserver.model.light.dto;
 
 import com.esme.spring.pixledserver.model.Status;
+import com.esme.spring.pixledserver.model.color.Color;
 import com.esme.spring.pixledserver.model.color.dao.ColorDao;
 import com.esme.spring.pixledserver.model.light.Light;
 import com.esme.spring.pixledserver.model.light.dao.LightDao;
@@ -81,7 +82,10 @@ public class LightController {
         }
 
         if (light == null) {
-            light = lightDao.save(new Light(dto.getLevel(), dto.getStatus(), roomDao.getOne(dto.getRoomId())));
+            Light newLight = new Light(dto.getLevel(), dto.getStatus(), roomDao.getOne(dto.getRoomId()));
+
+            colorDao.save(newLight.getColor());
+            light = lightDao.save(newLight);
         } else {
             if (dto.getLevel() != null) {
                 light.setLevel(dto.getLevel());

@@ -38,6 +38,8 @@ public class Light {
         this.level = level;
         this.status = status;
         this.room = room;
+        this.color = new Color(0f, 0f, 1f, -1);
+        this.connected = false;
     }
 
     public Long getId() {
