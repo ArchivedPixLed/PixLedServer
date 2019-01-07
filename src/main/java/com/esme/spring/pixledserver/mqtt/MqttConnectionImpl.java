@@ -13,11 +13,11 @@ public class MqttConnectionImpl implements MqttConnection {
 
     Logger logger = LoggerFactory.getLogger(MainAppConfig.class);
 
-    @Autowired
-    private MqttConnectionHandler mqttConnectionHandler;
-
     private IMqttClient client;
     private static final String clientId = "PixLedServer";
+
+    @Autowired
+    private MqttConnectionHandler mqttConnectionHandler;
 
     public MqttConnectionImpl() {
     }
@@ -31,18 +31,11 @@ public class MqttConnectionImpl implements MqttConnection {
             options.setAutomaticReconnect(true);
             options.setCleanSession(true);
             options.setConnectionTimeout(10);
+            client.setCallback(new MqttConnectionCallback(client, this, mqttConnectionHandler));
             client.connect(options);
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
-        try {
-            client.subscribe(connected_topic, 1, mqttConnectionHandler);
-            client.subscribe(disconnected_topic, 1, mqttConnectionHandler);
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

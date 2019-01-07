@@ -32,7 +32,6 @@ public class MainAppConfig {
     public MainAppConfig(MqttConnection mqttConnection) {
         logger.info("MQTT Configuration");
         mqttConnection.connect();
-        mqttConnection.checkConnectedModule();
     }
 
     @Bean
