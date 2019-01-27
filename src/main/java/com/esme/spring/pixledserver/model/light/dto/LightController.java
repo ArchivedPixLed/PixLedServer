@@ -82,9 +82,17 @@ public class LightController {
         }
 
         if (light == null) {
-            Light newLight = new Light(dto.getLevel(), dto.getStatus(), roomDao.getOne(dto.getRoomId()));
+            Light newLight = new Light(
+                    dto.getLevel() == null? 0 : dto.getLevel(),
+                    dto.getStatus() == null? Status.OFF : dto.getStatus(),
+                    dto.getRoomId() == null? null : roomDao.getOne(dto.getRoomId()));
 
-            colorDao.save(newLight.getColor());
+            if (newLight.getColor() == null){
+                colorDao.save(new Color(0F, 0F, 1F, -1));
+            }
+            else {
+                colorDao.save(newLight.getColor());
+            }
             light = lightDao.save(newLight);
         } else {
             if (dto.getLevel() != null) {

@@ -19,16 +19,15 @@ public class LightDto {
     }
 
     public LightDto(Light light) {
-        System.out.println("Init light");
         this.id = light.getId();
         this.level = light.getLevel();
         this.status = light.getStatus();
-        System.out.println("status ok");
         this.hue = light.getColor().getHue();
         this.saturation = light.getColor().getSaturation();
         this.value = light.getColor().getValue();
-        System.out.println("color ok");
-        this.roomId = light.getRoom().getId();
+        if (light.getRoom() != null) {
+            this.roomId = light.getRoom().getId();
+        }
         this.connected = light.getConnected();
     }
 
