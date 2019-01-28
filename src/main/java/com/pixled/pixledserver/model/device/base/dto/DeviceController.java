@@ -1,6 +1,7 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
 import com.pixled.pixledserver.model.color.dao.ColorDao;
+import com.pixled.pixledserver.model.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import com.pixled.pixledserver.mqtt.MqttConnection;
@@ -22,7 +23,7 @@ public class DeviceController {
     @Autowired
     private ColorDao colorDao;
     @Autowired
-    private DeviceGroupDao roomDao;
+    private DeviceGroupDao deviceGroupDao;
     @Autowired
     private MqttConnection mqttConnection;
 
@@ -31,28 +32,28 @@ public class DeviceController {
     public List<DeviceDto> findAll() {
         return deviceDao.findAll()
                 .stream()
-                .map(DeviceDto::new)
+                .map(SimpleDeviceDto::new)
                 .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{id}")
     public DeviceDto findById(@PathVariable Integer id) {
-        return deviceDao.findById(id).map(light -> new DeviceDto(light)).orElse(null);
+        return deviceDao.findById(id).map(device -> new SimpleDeviceDto(device)).orElse(null);
     }
 
-//    @PutMapping(path = "/{id}/switch")
-//    public DeviceDto switchStatus(@PathVariable Long id) {
-//        Device light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-//        light.switchLight();
-//        lightDao.save(light);
-//        roomDao.save(light.getRoom());
+    @PutMapping(path = "/{id}/switch")
+    public DeviceDto switchDevice(@PathVariable Integer id) {
+        Device device = deviceDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        device.switchDevice();
+        deviceDao.save(device);
+        // deviceGroupDao.save(light.getRoom());
 //        mqttConnection.publishSwitch(
 //                light.getRoom().getBuilding().getId(),
 //                light.getRoom().getId(),
 //                light.getId(),
 //                light.getStatus());
-//        return new DeviceDto(light);
-//    }
+        return new SimpleDeviceDto(device);
+    }
 //
 //    @PutMapping(path = "/{id}/color")
 //    public DeviceDto changeColor(@PathVariable Long id, @RequestBody ColorDto color) {

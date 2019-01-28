@@ -1,4 +1,4 @@
-package com.pixled.pixledserver.model.device.base.dto;
+package com.pixled.pixledserver.model.color.dto;
 
 import com.pixled.pixledserver.model.color.Color;
 

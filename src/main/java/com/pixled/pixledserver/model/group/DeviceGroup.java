@@ -84,7 +84,7 @@ public class DeviceGroup {
         deviceGroupState.setToggleState(toggleState);
     }
 
-    public void toggleGroup() {
+    public void switchGroup() {
         deviceGroupState.setToggleState(deviceGroupState.getToggleState() == ToggleState.ON ? ToggleState.OFF : ToggleState.ON);
         for (Device device : devices) {
             device.getDeviceState().setToggleState(deviceGroupState.getToggleState());

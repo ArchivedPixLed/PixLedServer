@@ -17,7 +17,7 @@ public abstract class Device {
     @GeneratedValue
     private Integer id;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "devices")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "devices", cascade = CascadeType.ALL)
     private List<DeviceGroup> deviceGroups;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -49,7 +49,7 @@ public abstract class Device {
         this.deviceState = deviceState;
     }
 
-    public void toggleDevice() {
+    public void switchDevice() {
         deviceState.setToggleState(deviceState.getToggleState() == ToggleState.ON ? ToggleState.OFF : ToggleState.ON);
         for (DeviceGroup deviceGroup : deviceGroups) {
             deviceGroup.updateStatus();

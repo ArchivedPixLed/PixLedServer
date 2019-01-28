@@ -1,18 +1,23 @@
 package com.pixled.pixledserver.model.group.dto;
 
+import com.pixled.pixledserver.model.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
+import com.pixled.pixledserver.model.device.base.dto.DeviceDto;
+import com.pixled.pixledserver.model.device.base.dto.SimpleDeviceDto;
+import com.pixled.pixledserver.model.group.DeviceGroup;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import com.pixled.pixledserver.mqtt.MqttConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/rooms")
+@RequestMapping("/api/groups")
 @Transactional
 public class DeviceGroupController {
 
@@ -35,46 +40,31 @@ public class DeviceGroupController {
     public DeviceGroupDto findById(@PathVariable Integer id) {
         return deviceGroupDao.findById(id).map(room -> new DeviceGroupDto(room)).orElse(null);
     }
-//
-//    @GetMapping(path = "/{id}/lights")
-//    public List<DeviceDto> findGroupDevices(@PathVariable Long id) {
-//        return deviceDao.findByDeviceGroupId(id)
-//                .stream()
-//                .map(light -> new DeviceDto(light))
-//                .collect(Collectors.toList());
-//    }
 
-//    @PutMapping(path = "/{id}/switch")
-//    public List<DeviceDto> switchLight(@PathVariable Long id) {
-//        DeviceGroup room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-////        if(roomDao.roomLightById(room.getId())){
-////            for (Light light : room.getLights()){
-////                if (light.getStatus() == Status.ON) {
-////                    light.setStatus(Status.OFF);
-////                    lightDao.save(light);
-////                }
-////            }
-////        }
-////        else {
-////            for (Light light : room.getLights()){
-////                light.setStatus(Status.ON);
-////                lightDao.save(light);
-////            }
-////        }
-//        room.switchRoom();
-//        roomDao.save(room);
-//        ArrayList<DeviceDto> lightDtos = new ArrayList<>();
-//        for (Device light : room.getLights()) {
-//            lightDao.save(light);
-//            lightDtos.add(new DeviceDto(light));
+    @GetMapping(path = "/{id}/devices")
+    public List<DeviceDto> findGroupDevices(@PathVariable Integer id) {
+        return deviceDao.findByDeviceGroups(deviceGroupDao.findById(id).orElseThrow(IllegalArgumentException::new))
+                .stream()
+                .map(device -> new SimpleDeviceDto(device))
+                .collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "/{id}/switch")
+    public List<DeviceDto> switchGroup(@PathVariable Integer id) {
+        DeviceGroup deviceGroup = deviceGroupDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        deviceGroup.switchGroup();
+        deviceGroupDao.save(deviceGroup);
+        ArrayList<DeviceDto> deviceDtos = new ArrayList<>();
+        for (Device device : deviceGroup.getDevices()) {
+            deviceDtos.add(new SimpleDeviceDto(device));
 //            mqttConnection.publishSwitch(
 //                    room.getBuilding().getId(),
 //                    room.getId(),
 //                    light.getId(),
 //                    light.getStatus());
-//        }
-//        return lightDtos;
-//    }
+        }
+        return deviceDtos;
+    }
 //
 //    @PostMapping
 //    public DeviceGroupDto create(@RequestBody DeviceGroupDto dto) {

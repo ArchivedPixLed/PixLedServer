@@ -1,4 +1,4 @@
-package com.pixled.pixledserver.model.device.group;
+package com.pixled.pixledserver.model.group;
 
 import com.pixled.pixledserver.model.device.base.Device;
 import com.pixled.pixledserver.model.device.strip.Strip;
