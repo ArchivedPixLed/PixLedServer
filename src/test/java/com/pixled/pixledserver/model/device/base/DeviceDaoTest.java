@@ -35,25 +35,9 @@ public class DeviceDaoTest {
         assertThat(deviceDao.findAll()).hasSize(2);
         List<Integer> ledCounts = new ArrayList<>();
         for (Device device : strips) {
-            ledCounts.add(((Strip) device).getLedCount());
+            ledCounts.add(((Strip) device).getLength());
         }
         assertThat(ledCounts).contains(20);
         assertThat(ledCounts).contains(10);
     }
-
-//    @Test
-//    public void shouldFindOnLights() {
-//        assertThat(deviceDao.findOnLights())
-//                .hasSize(1)
-//                .extracting("id", "status")
-//                .containsExactly(tuple(-1L, ToggleState.ON));
-//    }
-//
-//    @Test
-//    public void shouldFindRoomLights() {
-//        assertThat(deviceDao.findByRoomId(-10L))
-//                .hasSize(2)
-//                .extracting("id")
-//                .contains(-1L, -2L);
-//    }
 }

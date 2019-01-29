@@ -9,23 +9,23 @@ import javax.persistence.Entity;
 public class Strip extends Device {
 
     @Column
-    private Integer ledCount;
+    private Integer length;
 
     public Strip(){
         super();
     }
 
-    public Strip(Integer ledCount) {
+    public Strip(Integer length) {
         super();
-        this.ledCount = ledCount;
+        this.length = length;
     }
 
-    public Integer getLedCount() {
-        return ledCount;
+    public Integer getLength() {
+        return length;
     }
 
-    public void setLedCount(Integer ledCount) {
-        this.ledCount = ledCount;
+    public void setLength(Integer length) {
+        this.length = length;
     }
 
 }

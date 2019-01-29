@@ -1,6 +1,5 @@
 package com.pixled.pixledserver.model.device.base;
 
-import com.pixled.pixledserver.model.color.Color;
 import com.pixled.pixledserver.model.group.DeviceGroup;
 import com.pixled.pixledserver.model.ToggleState;
 import com.pixled.pixledserver.state.device.DeviceState;
@@ -16,6 +15,9 @@ public abstract class Device {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @Column
+    private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "devices", cascade = CascadeType.ALL)
     private List<DeviceGroup> deviceGroups;
@@ -35,6 +37,14 @@ public abstract class Device {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<DeviceGroup> getDeviceGroups() {

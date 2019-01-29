@@ -10,6 +10,7 @@ import java.util.List;
 
 public abstract class DeviceDto {
     private Integer id;
+    private String name;
     private List<Integer> deviceGroups;
     private DeviceStateDto state;
 
@@ -19,6 +20,7 @@ public abstract class DeviceDto {
     public DeviceDto(Device device) {
         deviceGroups = new ArrayList<>();
         id = device.getId();
+        name = device.getName();
         state = new DeviceStateDto(device.getDeviceState());
         for (DeviceGroup deviceGroup : device.getDeviceGroups()) {
             deviceGroups.add(deviceGroup.getId());
@@ -31,6 +33,14 @@ public abstract class DeviceDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Integer> getDeviceGroups() {

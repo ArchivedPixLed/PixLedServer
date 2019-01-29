@@ -5,18 +5,18 @@ import com.pixled.pixledserver.model.device.strip.Strip;
 
 public class StripDto extends DeviceDto {
 
-    private Integer ledCount;
+    private Integer length;
 
     public StripDto(Strip strip) {
         super(strip);
-        ledCount = strip.getLedCount();
+        length = strip.getLength();
     }
 
-    public Integer getLedCount() {
-        return ledCount;
+    public Integer getLength() {
+        return length;
     }
 
-    public void setLedCount(Integer ledCount) {
-        this.ledCount = ledCount;
+    public void setLength(Integer length) {
+        this.length = length;
     }
 }
