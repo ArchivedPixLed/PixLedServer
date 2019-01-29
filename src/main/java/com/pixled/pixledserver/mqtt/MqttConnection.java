@@ -10,6 +10,7 @@ public interface MqttConnection {
 
     void connect();
     void checkConnectedModule();
-    void publishColor(long buildingId, long roomId, long lightId, String color);
-    void publishSwitch(long buildingId, long roomId, long lightId, ToggleState status);
+    void publishDeviceColor(int deviceId, String color);
+    void publishDeviceSwitch(int deviceId, ToggleState status);
+    void publishGroupSwitch(int groupId, ToggleState status);
 }

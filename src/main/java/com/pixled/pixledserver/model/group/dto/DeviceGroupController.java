@@ -63,6 +63,7 @@ public class DeviceGroupController {
 //                    light.getId(),
 //                    light.getStatus());
         }
+        mqttConnection.publishGroupSwitch(deviceGroup.getId(), deviceGroup.getDeviceGroupState().getToggleState());
         return deviceDtos;
     }
 //
