@@ -1,7 +1,7 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
 import com.pixled.pixledserver.model.color.dao.ColorDao;
-import com.pixled.pixledserver.model.device.base.Device;
+import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import com.pixled.pixledserver.mqtt.MqttConnection;

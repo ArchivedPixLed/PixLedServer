@@ -1,6 +1,6 @@
 package com.pixled.pixledserver.mqtt;
 
-import com.pixled.pixledserver.model.device.base.Device;
+import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;

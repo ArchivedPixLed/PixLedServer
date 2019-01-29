@@ -1,7 +1,8 @@
 package com.pixled.pixledserver.model.device.base;
 
+import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
-import com.pixled.pixledserver.model.device.strip.Strip;
+import com.pixled.pixledserver.core.device.strip.Strip;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

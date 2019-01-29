@@ -1,6 +1,6 @@
 package com.pixled.pixledserver.model.color.dto;
 
-import com.pixled.pixledserver.model.color.Color;
+import com.pixled.pixledserver.core.color.Color;
 
 public class ColorDto {
     private Float hue;

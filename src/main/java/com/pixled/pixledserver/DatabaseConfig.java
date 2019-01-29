@@ -1,9 +1,9 @@
 package com.pixled.pixledserver;
 
-import com.pixled.pixledserver.model.device.base.Device;
+import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
-import com.pixled.pixledserver.model.device.strip.Strip;
-import com.pixled.pixledserver.model.group.DeviceGroup;
+import com.pixled.pixledserver.core.device.strip.Strip;
+import com.pixled.pixledserver.core.group.DeviceGroup;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

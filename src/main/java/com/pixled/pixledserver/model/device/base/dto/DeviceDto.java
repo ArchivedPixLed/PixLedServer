@@ -1,9 +1,9 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
-import com.pixled.pixledserver.model.device.base.Device;
-import com.pixled.pixledserver.model.group.DeviceGroup;
-import com.pixled.pixledserver.state.base.dto.StateDto;
-import com.pixled.pixledserver.state.device.dto.DeviceStateDto;
+import com.pixled.pixledserver.core.device.base.Device;
+import com.pixled.pixledserver.core.group.DeviceGroup;
+import com.pixled.pixledserver.model.state.base.dto.StateDto;
+import com.pixled.pixledserver.model.state.device.dto.DeviceStateDto;
 
 import java.util.ArrayList;
 import java.util.List;

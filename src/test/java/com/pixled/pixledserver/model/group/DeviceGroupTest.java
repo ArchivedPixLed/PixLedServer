@@ -1,8 +1,8 @@
 package com.pixled.pixledserver.model.group;
 
-import com.pixled.pixledserver.model.device.base.Device;
-import com.pixled.pixledserver.model.device.strip.Strip;
-import com.pixled.pixledserver.model.group.DeviceGroup;
+import com.pixled.pixledserver.core.device.base.Device;
+import com.pixled.pixledserver.core.device.strip.Strip;
+import com.pixled.pixledserver.core.group.DeviceGroup;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;

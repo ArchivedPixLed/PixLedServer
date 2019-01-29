@@ -1,7 +1,7 @@
-package com.pixled.pixledserver.state.device.dto;
+package com.pixled.pixledserver.model.state.device.dto;
 
-import com.pixled.pixledserver.state.base.dto.StateDto;
-import com.pixled.pixledserver.state.device.DeviceState;
+import com.pixled.pixledserver.model.state.base.dto.StateDto;
+import com.pixled.pixledserver.core.state.device.DeviceState;
 
 public class DeviceStateDto extends StateDto {
 

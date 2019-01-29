@@ -1,6 +1,6 @@
 package com.pixled.pixledserver.mqtt;
 
-import com.pixled.pixledserver.model.ToggleState;
+import com.pixled.pixledserver.core.ToggleState;
 
 public interface MqttConnection {
 

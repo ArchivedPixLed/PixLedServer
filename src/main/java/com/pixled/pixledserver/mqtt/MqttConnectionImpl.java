@@ -1,7 +1,7 @@
 package com.pixled.pixledserver.mqtt;
 
 import com.pixled.pixledserver.MainAppConfig;
-import com.pixled.pixledserver.model.ToggleState;
+import com.pixled.pixledserver.core.ToggleState;
 import org.eclipse.paho.client.mqttv3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

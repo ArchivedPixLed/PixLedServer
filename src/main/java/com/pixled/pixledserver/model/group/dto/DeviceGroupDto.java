@@ -1,7 +1,7 @@
 package com.pixled.pixledserver.model.group.dto;
 
-import com.pixled.pixledserver.model.group.DeviceGroup;
-import com.pixled.pixledserver.state.deviceGroup.dto.DeviceGroupStateDto;
+import com.pixled.pixledserver.core.group.DeviceGroup;
+import com.pixled.pixledserver.model.state.deviceGroup.dto.DeviceGroupStateDto;
 
 public class DeviceGroupDto {
 

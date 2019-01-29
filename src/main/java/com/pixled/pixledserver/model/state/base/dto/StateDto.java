@@ -1,7 +1,7 @@
-package com.pixled.pixledserver.state.base.dto;
+package com.pixled.pixledserver.model.state.base.dto;
 
-import com.pixled.pixledserver.model.ToggleState;
-import com.pixled.pixledserver.state.base.State;
+import com.pixled.pixledserver.core.ToggleState;
+import com.pixled.pixledserver.core.state.base.State;
 
 public class StateDto {
 

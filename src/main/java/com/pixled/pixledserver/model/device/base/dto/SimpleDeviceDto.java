@@ -1,6 +1,6 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
-import com.pixled.pixledserver.model.device.base.Device;
+import com.pixled.pixledserver.core.device.base.Device;
 
 public class SimpleDeviceDto extends DeviceDto {
 

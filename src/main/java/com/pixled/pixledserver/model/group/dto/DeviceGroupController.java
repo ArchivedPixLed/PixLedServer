@@ -1,10 +1,10 @@
 package com.pixled.pixledserver.model.group.dto;
 
-import com.pixled.pixledserver.model.device.base.Device;
+import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
 import com.pixled.pixledserver.model.device.base.dto.DeviceDto;
 import com.pixled.pixledserver.model.device.base.dto.SimpleDeviceDto;
-import com.pixled.pixledserver.model.group.DeviceGroup;
+import com.pixled.pixledserver.core.group.DeviceGroup;
 import com.pixled.pixledserver.model.group.dao.DeviceGroupDao;
 import com.pixled.pixledserver.mqtt.MqttConnection;
 import org.springframework.beans.factory.annotation.Autowired;

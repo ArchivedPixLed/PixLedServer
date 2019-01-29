@@ -1,7 +1,7 @@
 package com.pixled.pixledserver.model.device.strip.dto;
 
 import com.pixled.pixledserver.model.device.base.dto.DeviceDto;
-import com.pixled.pixledserver.model.device.strip.Strip;
+import com.pixled.pixledserver.core.device.strip.Strip;
 
 public class StripDto extends DeviceDto {
 
