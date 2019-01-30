@@ -1,9 +1,9 @@
 package com.pixled.pixledserver.model.device.strip.dto;
 
 import com.pixled.pixledserver.core.device.base.Device;
-import com.pixled.pixledserver.model.device.base.dto.DeviceDto;
-import com.pixled.pixledserver.model.device.base.dto.SimpleDeviceDto;
+import com.pixled.pixledserver.core.device.base.DeviceDto;
 import com.pixled.pixledserver.core.device.strip.Strip;
+import com.pixled.pixledserver.core.device.strip.StripDto;
 import com.pixled.pixledserver.model.device.strip.dao.StripDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

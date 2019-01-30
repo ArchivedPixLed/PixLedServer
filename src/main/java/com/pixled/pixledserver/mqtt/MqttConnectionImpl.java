@@ -44,16 +44,18 @@ public class MqttConnectionImpl implements MqttConnection {
         MqttMessage msg = new MqttMessage();
         msg.setQos(1);
         msg.setRetained(false);
-        try {
-            client.publish(check_topic, msg);
-        } catch (MqttException e) {
-            e.printStackTrace();
+        if (client != null && client.isConnected()) {
+            try {
+                client.publish(check_topic, msg);
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void publishDeviceColor(int deviceId, String color) {
-        if (client.isConnected()) {
+        if (client != null && client.isConnected()) {
             String topic = "/devices/" + deviceId + "/state/color";
             byte[] payload = color.getBytes();
             logger.info("Publish " + payload + " to " + topic);
@@ -70,7 +72,7 @@ public class MqttConnectionImpl implements MqttConnection {
 
     @Override
     public void publishDeviceSwitch(int deviceId, ToggleState status) {
-        if (client.isConnected()) {
+        if (client != null && client.isConnected()) {
             String topic = "/devices/" + deviceId + "/state/switch";
             byte[] payload = status.name().getBytes();
             logger.info("Publish " + status.name() + " to " + topic);
@@ -87,7 +89,7 @@ public class MqttConnectionImpl implements MqttConnection {
 
     @Override
     public void publishGroupSwitch(int groupId, ToggleState status) {
-        if (client.isConnected()) {
+        if (client != null && client.isConnected()) {
             String topic = "/devices/" + groupId + "/state/switch";
             byte[] payload = status.name().getBytes();
             logger.info("Publish " + status.name() + " to " + topic);

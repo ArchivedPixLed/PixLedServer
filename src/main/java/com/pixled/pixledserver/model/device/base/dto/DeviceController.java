@@ -1,5 +1,7 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
+import com.pixled.pixledserver.core.device.base.DeviceDto;
+import com.pixled.pixledserver.core.device.base.SimpleDeviceDto;
 import com.pixled.pixledserver.model.color.dao.ColorDao;
 import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
