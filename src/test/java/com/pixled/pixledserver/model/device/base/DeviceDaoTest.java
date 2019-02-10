@@ -37,6 +37,7 @@ public class DeviceDaoTest {
         List<Integer> ledCounts = new ArrayList<>();
         for (Device device : strips) {
             ledCounts.add(((Strip) device).getLength());
+            assertThat(device.getDeviceState().getColor()).isNotEqualTo(null);
         }
         assertThat(ledCounts).contains(20);
         assertThat(ledCounts).contains(10);

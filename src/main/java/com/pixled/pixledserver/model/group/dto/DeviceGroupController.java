@@ -2,7 +2,6 @@ package com.pixled.pixledserver.model.group.dto;
 
 import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.core.device.base.DeviceDto;
-import com.pixled.pixledserver.core.device.base.SimpleDeviceDto;
 import com.pixled.pixledserver.core.group.DeviceGroupDto;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
 import com.pixled.pixledserver.core.group.DeviceGroup;
@@ -39,14 +38,14 @@ public class DeviceGroupController {
 
     @GetMapping(path = "/{id}")
     public DeviceGroupDto findById(@PathVariable Integer id) {
-        return deviceGroupDao.findById(id).map(room -> new DeviceGroupDto(room)).orElse(null);
+        return deviceGroupDao.findById(id).map(device -> new DeviceGroupDto(device)).orElse(null);
     }
 
     @GetMapping(path = "/{id}/devices")
     public List<DeviceDto> findGroupDevices(@PathVariable Integer id) {
         return deviceDao.findByDeviceGroups(deviceGroupDao.findById(id).orElseThrow(IllegalArgumentException::new))
                 .stream()
-                .map(device -> new SimpleDeviceDto(device))
+                .map(device -> device.generateDto())
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +56,7 @@ public class DeviceGroupController {
         deviceGroupDao.save(deviceGroup);
         ArrayList<DeviceDto> deviceDtos = new ArrayList<>();
         for (Device device : deviceGroup.getDevices()) {
-            deviceDtos.add(new SimpleDeviceDto(device));
+            deviceDtos.add(device.generateDto());
 //            mqttConnection.publishSwitch(
 //                    room.getBuilding().getId(),
 //                    room.getId(),
@@ -68,22 +67,24 @@ public class DeviceGroupController {
         return deviceDtos;
     }
 //
-//    @PostMapping
-//    public DeviceGroupDto create(@RequestBody DeviceGroupDto dto) {
-//        DeviceGroup room = null;
-//        if (dto.getId() != null) {
-//            room = roomDao.findById(dto.getId()).orElse(null);
-//        }
-//
-//        if (room == null) {
-//            room = roomDao.save(new DeviceGroup(dto.getName(), dto.getFloor(), buildingDao.getOne(dto.getBuildingId())));
-//        } else {
-//            roomDao.save(room);
-//        }
-//
-//        return new DeviceGroupDto(room);
-//    }
-//
+    @PostMapping
+    public DeviceGroupDto create(@RequestBody DeviceGroupDto dto) {
+        DeviceGroup deviceGroup = new DeviceGroup(dto);
+        deviceGroup.setDevices(deviceDao.findAllById(dto.getDevices()));
+        deviceGroup = deviceGroupDao.save(deviceGroup);
+
+        return new DeviceGroupDto(deviceGroup);
+    }
+
+    @PutMapping(path = "/{id}")
+    public DeviceGroupDto update(@RequestBody DeviceGroupDto dto) {
+        DeviceGroup deviceGroup = deviceGroupDao.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException());
+        deviceGroup.setName(dto.getName());
+        deviceGroup.setDevices(deviceDao.findAllById(dto.getDevices()));
+        deviceGroup = deviceGroupDao.save(deviceGroup);
+
+        return new DeviceGroupDto(deviceGroup);
+    }
 //    @DeleteMapping(path="/{id}")
 //    public void delete(@PathVariable Long id) {
 //        roomDao.deleteById(id);

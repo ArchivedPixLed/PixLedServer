@@ -1,7 +1,7 @@
 package com.pixled.pixledserver.model.device.base.dto;
 
+import com.pixled.pixledserver.core.color.ColorDto;
 import com.pixled.pixledserver.core.device.base.DeviceDto;
-import com.pixled.pixledserver.core.device.base.SimpleDeviceDto;
 import com.pixled.pixledserver.model.color.dao.ColorDao;
 import com.pixled.pixledserver.core.device.base.Device;
 import com.pixled.pixledserver.model.device.base.dao.DeviceDao;
@@ -34,13 +34,13 @@ public class DeviceController {
     public List<DeviceDto> findAll() {
         return deviceDao.findAll()
                 .stream()
-                .map(SimpleDeviceDto::new)
+                .map(device -> device.generateDto())
                 .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{id}")
     public DeviceDto findById(@PathVariable Integer id) {
-        return deviceDao.findById(id).map(device -> new SimpleDeviceDto(device)).orElse(null);
+        return deviceDao.findById(id).map(device -> device.generateDto()).orElse(null);
     }
 
     @PutMapping(path = "/{id}/switch")
@@ -54,25 +54,24 @@ public class DeviceController {
 //                light.getRoom().getId(),
 //                light.getId(),
 //                light.getStatus());
-        return new SimpleDeviceDto(device);
+        return device.generateDto();
     }
 //
-//    @PutMapping(path = "/{id}/color")
-//    public DeviceDto changeColor(@PathVariable Long id, @RequestBody ColorDto color) {
-//        Device light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
-//        light.getColor().setHue(color.getHue());
-//        light.getColor().setSaturation(color.getSaturation());
-//        light.getColor().setValue(color.getValue());
-//        light.getColor().setArgb(color.getArgb());
-//        colorDao.save(light.getColor());
+    @PutMapping(path = "/{id}/color")
+    public DeviceDto changeColor(@PathVariable Integer id, @RequestBody ColorDto color) {
+        Device device = deviceDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        device.getDeviceState().getColor().setHue(color.getHue());
+        device.getDeviceState().getColor().setSaturation(color.getSaturation());
+        device.getDeviceState().getColor().setValue(color.getValue());
+        colorDao.save(device.getDeviceState().getColor());
 //        mqttConnection.publishColor(
 //                light.getRoom().getBuilding().getId(),
 //                light.getRoom().getId(),
 //                light.getId(),
 //                color.getArgb().toString());
-//
-//        return new DeviceDto(light);
-//    }
+
+        return device.generateDto();
+    }
 //
 //    @PostMapping
 //    public DeviceDto create(@RequestBody DeviceDto dto) {

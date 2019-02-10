@@ -25,13 +25,13 @@ public class StripController {
     public List<StripDto> findAll() {
         return stripDao.findAll()
                 .stream()
-                .map(StripDto::new)
+                .map(strip -> strip.generateDto())
                 .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{id}")
     public StripDto findById(@PathVariable Integer id) {
-        return stripDao.findById(id).map(device -> new StripDto(device)).orElse(null);
+        return stripDao.findById(id).map(strip -> new StripDto(strip)).orElse(null);
     }
 
     @PutMapping(path = "/{id}/switch")

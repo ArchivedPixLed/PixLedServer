@@ -1,4 +1,4 @@
-package com.pixled.pixledserver;
+package com.pixled.pixledserver.config;
 
 import com.pixled.pixledserver.mqtt.MqttConnection;
 import org.slf4j.Logger;
