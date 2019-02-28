@@ -13,25 +13,23 @@ public class DatabaseConfig {
 
     @Autowired
     public DatabaseConfig(DeviceGroupDao deviceGroupDao, DeviceDao deviceDao) {
-        DeviceGroup deviceGroup1 = new DeviceGroup("Test Group 1");
-        deviceGroupDao.save(deviceGroup1);
+        /*
+        Test Data
+         */
 
-        Device testDevice1 = new Strip(15);
-        testDevice1.setName("Strip 1");
-        Device testDevice2 = new Strip(30);
-        testDevice2.setName("Strip 2");
-        deviceGroup1.getDevices().add(testDevice1);
-        deviceGroup1.getDevices().add(testDevice2);
-        deviceGroupDao.save(deviceGroup1);
-
-        Device testDevice3 = new Strip(30);
-        testDevice3.setName("Strip 3");
-        deviceDao.save(testDevice3);
-
-        DeviceGroup deviceGroup2 = new DeviceGroup("Test Group 2");
-        deviceGroupDao.save(deviceGroup2);
-
-        DeviceGroup deviceGroup3 = new DeviceGroup("Test Group 3");
-        deviceGroupDao.save(deviceGroup3);
+//        Device testDevice1 = new Strip("Led Strip 1", 15);
+//        testDevice1.getDeviceState().setConnected(true);
+//        Device testDevice2 = new Strip("Desk", 30);
+//        testDevice2.getDeviceState().setConnected(true);
+//
+//        Device testDevice3 = new Strip("Bed", 30);
+//        testDevice3.getDeviceState().setConnected(true);
+//        Device testDevice4 = new Strip("Led Strip 2", 30);
+//
+//
+//        deviceDao.save(testDevice1);
+//        deviceDao.save(testDevice2);
+//        deviceDao.save(testDevice3);
+//        deviceDao.save(testDevice4);
     }
 }

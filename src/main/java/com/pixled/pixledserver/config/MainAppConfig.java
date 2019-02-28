@@ -13,8 +13,8 @@ public class MainAppConfig {
 
     @Autowired
     public MainAppConfig(MqttConnection mqttConnection) {
-        // logger.info("MQTT Configuration");
-        // mqttConnection.connect();
+        logger.info("MQTT Configuration");
+        mqttConnection.connect();
     }
 
 }

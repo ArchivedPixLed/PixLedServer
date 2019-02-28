@@ -9,6 +9,7 @@ public interface MqttConnection {
     String check_topic = "/check";
 
     void connect();
+    boolean isConnected();
     void checkConnectedModule();
     void publishDeviceColor(int deviceId, String color);
     void publishDeviceSwitch(int deviceId, ToggleState status);

@@ -57,11 +57,12 @@ public class DeviceGroupController {
         ArrayList<DeviceDto> deviceDtos = new ArrayList<>();
         for (Device device : deviceGroup.getDevices()) {
             deviceDtos.add(device.generateDto());
-//            mqttConnection.publishSwitch(
-//                    room.getBuilding().getId(),
-//                    room.getId(),
-//                    light.getId(),
-//                    light.getStatus());
+            if (mqttConnection.isConnected()) {
+                mqttConnection.publishDeviceSwitch(
+                        device.getId(),
+                        device.getDeviceState().getToggleState());
+
+            }
         }
         mqttConnection.publishGroupSwitch(deviceGroup.getId(), deviceGroup.getDeviceGroupState().getToggleState());
         return deviceDtos;
@@ -71,6 +72,7 @@ public class DeviceGroupController {
     public DeviceGroupDto create(@RequestBody DeviceGroupDto dto) {
         DeviceGroup deviceGroup = new DeviceGroup(dto);
         deviceGroup.setDevices(deviceDao.findAllById(dto.getDevices()));
+        deviceGroup.updateStatus();
         deviceGroup = deviceGroupDao.save(deviceGroup);
 
         return new DeviceGroupDto(deviceGroup);
@@ -85,9 +87,12 @@ public class DeviceGroupController {
 
         return new DeviceGroupDto(deviceGroup);
     }
-//    @DeleteMapping(path="/{id}")
-//    public void delete(@PathVariable Long id) {
-//        roomDao.deleteById(id);
-//    }
+
+    @DeleteMapping(path="/{id}")
+    public void deleteGroup(@PathVariable Integer id) {
+        DeviceGroup deviceGroup = deviceGroupDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        deviceGroup.getDevices().clear();
+        deviceGroupDao.delete(deviceGroup);
+    }
 
 }

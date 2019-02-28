@@ -26,10 +26,10 @@ public class DeviceDaoTest {
 
     @Test
     public void addStrips() {
-        Strip stripDevice1 = new Strip(20);
+        Strip stripDevice1 = new Strip("Test Strip 1",20);
         deviceDao.save(stripDevice1);
 
-        Strip stripDevice2 = new Strip(10);
+        Strip stripDevice2 = new Strip("Test Strip 2",10);
         deviceDao.save(stripDevice2);
 
         List<Device> strips = deviceDao.findAll();

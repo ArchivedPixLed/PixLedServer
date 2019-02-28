@@ -27,8 +27,8 @@ public class DeviceGroupTest {
         DeviceGroup deviceGroup = new DeviceGroup("Test Group");
         deviceGroupDao.save(deviceGroup);
 
-        Device testDevice1 = new Strip(15);
-        Device testDevice2 = new Strip(30);
+        Device testDevice1 = new Strip("Strip1", 15);
+        Device testDevice2 = new Strip("Strip2",30);
         deviceGroup.getDevices().add(testDevice1);
         deviceGroup.getDevices().add(testDevice2);
         deviceGroupDao.save(deviceGroup);

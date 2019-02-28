@@ -24,7 +24,6 @@ public class MqttConnectionHandler implements IMqttMessageListener {
         if (device != null) {
             if (topic.equals(MqttConnection.connected_topic)) {
                 device.getDeviceState().setConnected(true);
-                deviceDao.save(device);
 
 //                // Initialize the switch state of the device
 //                mqttConnection.publishSwitch(
@@ -46,6 +45,7 @@ public class MqttConnectionHandler implements IMqttMessageListener {
             } else if (topic.equals(MqttConnection.disconnected_topic)) {
                 device.getDeviceState().setConnected(false);
             }
+            deviceDao.save(device);
         }
     }
 }

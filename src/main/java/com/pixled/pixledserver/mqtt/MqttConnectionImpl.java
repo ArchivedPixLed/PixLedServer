@@ -39,6 +39,11 @@ public class MqttConnectionImpl implements MqttConnection {
     }
 
     @Override
+    public boolean isConnected() {
+        return client.isConnected();
+    }
+
+    @Override
     public void checkConnectedModule() {
         logger.info("Checking connected modules");
         MqttMessage msg = new MqttMessage();
