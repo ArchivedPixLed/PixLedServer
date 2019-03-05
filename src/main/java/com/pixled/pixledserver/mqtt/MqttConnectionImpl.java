@@ -25,16 +25,28 @@ public class MqttConnectionImpl implements MqttConnection {
     @Override
     public void connect() {
         logger.info("Connecting to mqtt broker...");
+        MqttConnectOptions options = new MqttConnectOptions();
+        options.setAutomaticReconnect(true);
+        options.setCleanSession(true);
+        options.setConnectionTimeout(10);
+
+        reconnect(options);
+    }
+
+    private void reconnect(MqttConnectOptions options) {
         try {
             client = new MqttClient("tcp://localhost:1883", clientId);
-            MqttConnectOptions options = new MqttConnectOptions();
-            options.setAutomaticReconnect(true);
-            options.setCleanSession(true);
-            options.setConnectionTimeout(10);
             client.setCallback(new MqttConnectionCallback(client, this, mqttConnectionHandler));
             client.connect(options);
         } catch (MqttException e) {
-            e.printStackTrace();
+            try {
+                logger.error("MQTT connection failed.");
+                Thread.sleep(5000);
+                logger.warn("MQTT connection retry");
+                connect();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

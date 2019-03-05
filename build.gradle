@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.pixled'
-version = '0.2-SNAPSHOT'
+version = '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
@@ -35,5 +35,5 @@ dependencies {
 	compile('org.apache.httpcomponents:httpcore:4.4.10')
 	implementation('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0')
 	implementation('org.springframework.integration:spring-integration-mqtt:5.1.1.RELEASE')
-	// implementation('com.github.PixLed:PixLedServer-Core:v0.2.5')
+	implementation('com.github.PixLed:PixLedServer-Core:v1.0.0')
 }
