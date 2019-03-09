@@ -10,7 +10,10 @@ The following tutorial will teach you how to setup the PixLedServer on a Raspber
 1. Install your raspberry pi with the Raspbian OS (check the [RPi documentation](https://projects.raspberrypi.org/en/projects/raspberry-pi-getting-started) to learn how to)
 2. Connect the Raspberry Pi to the local network, via Ethernet or WiFi.
 
-All the following commands can be run from terminals on the Pi, or from a SSH connection, as you prefer. 
+All the following commands can be run from terminals on the Pi, or from a SSH connection, as you prefer.
+
+## /!\ Important note /!\
+For mysterious reasons, mDNS doesn't seem to work well when the Raspberry Pi / the server is connected on your local network using ethernet. So please prefer a wifi connection.
 
 ## Avahi
 [Avahi](https://en.wikipedia.org/wiki/Avahi_(software)) is a software that we allow devices (including led devices and the Androïd devices) to automatically find the MQTT broker and the HTTP server on your local network using mDNS.
@@ -56,6 +59,8 @@ You can then check that everything work with `sudo systemctl status avahi-daemon
 
 Finally, run `sudo systemctl enable avahi-daemon`.
 This will make the Avahi service to start each time you boot your system.
+
+Optionnally, you can check that your services are well broadcast with the `avahi-browse` tool.
 
 ## Mosquitto
 [Mosquitto](https://mosquitto.org/) is an open-source software that implements the MQTT protocol. We will use it to install the MQTT broker, that is used to transmit messages such as devices switchs, color changes, and connection / disconnection.
@@ -114,4 +119,29 @@ Then, run `mkdir /home/pi/pixled` and copy the .jar file to the created folder.
 ### Run and enable
 This part requires extra steps, because this time you need to create your own systemd service file that will allow you to run the .jar as a service, for example to enable it at boot.
 
-To so, just create the `/etc/systemd/system/pixledserver.service` :
+To do so, just create the `/etc/systemd/system/pixledserver.service` :
+```
+[Unit]
+Description=PixLed Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/java -jar pixledserver-1.0-SNAPSHOT.jar
+WorkingDirectory=/home/pi/pixled
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+You can now run the `pixledserver` with `sudo systemctl start pixledserver`, check its status with `sudo systemctl status pixledserver` and above all enable it at boot with `sudo systemctl enable pixledserver`.
+
+
+# You're done!
+Now just run `sudo reboot` to reboot your Pi. All the services should be launched at boot, and you can always check their status using `sudo systemctl status` commands.
+Please note that when you shutdown the pi unplugging it, some issues may occur at boot with some component. So be sure to cleanly boot the RPi using `sudo reboot` when everything is set up.
+
+# App and modules
+If not done yet, you can now connect your ![PixLed Androïd app](https://github.com/PaulBreugnot/PixLedAndroid) and ![PixLed modules](https://github.com/PaulBreugnot/PixLedModule_Strip) to your server!
