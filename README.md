@@ -1,7 +1,16 @@
-# PixLedServer
+# PixLedServer :sheep: :rainbow:
 General purpose Spring server to control connected PixLed devices.
 
 This server can be used with ![PixLed Androïd](https://github.com/PaulBreugnot/PixLedAndroid) and ![PixLed ESP32 modules](https://github.com/PaulBreugnot/PixLedModule_Strip) to build an awesome connected LED strip lighting system!
+
+# Features
+- [x] Devices and device groups persistent storage and management
+- [x] Color changes and switches using a REST API
+- [x] Commands transmission to devices using MQTT
+- [x] Device group controls (switch only)
+- [ ] Animation generation
+- [ ] Animation streaming to devices
+- [ ] Other devices handling (panels and so on)
 
 # Install
 The following tutorial will teach you how to setup the PixLedServer on a Raspberry Pi. However, the same installation can be performed on most of the common linux distributions with minor changed.
@@ -144,4 +153,4 @@ Now just run `sudo reboot` to reboot your Pi. All the services should be launche
 Please note that when you shutdown the pi unplugging it, some issues may occur at boot with some component. So be sure to cleanly boot the RPi using `sudo reboot` when everything is set up.
 
 # App and modules
-If not done yet, you can now connect your ![PixLed Androïd app](https://github.com/PaulBreugnot/PixLedAndroid) and ![PixLed modules](https://github.com/PaulBreugnot/PixLedModule_Strip) to your server!
+If not done yet, you can now connect your ![PixLed Androïd app](https://github.com/PaulBreugnot/PixLedAndroid) and ![PixLed modules](https://github.com/PaulBreugnot/PixLedModule_Strip) to your server! :sheep: :rainbow:
