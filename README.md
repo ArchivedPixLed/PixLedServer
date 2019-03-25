@@ -84,7 +84,7 @@ sudo apt-get install mosquitto
 Append the following lines to the file `/etc/mosquitto/mosquitto.conf` :
 ```
 allow_anonymous true
-acl_file /etc/mosquitto/mosquitto_acl
+acl_file /etc/mosquitto/mosquitto.acl
 
 listener 1883
 protocol mqtt
@@ -93,7 +93,7 @@ listener 9001
 protocol websockets
 ```
 
-And create a file `/etc/mosquitto/mosquitto_acl` with the following content :
+And create a file `/etc/mosquitto/mosquitto.acl` with the following content :
 ```
 #Devices switch
 topic readwrite /devices/+/state/switch
