@@ -45,7 +45,8 @@ sudo apt-get install avahi-daemon
 ### Configure
 Now, you need to configure Avahi so that he will broadcast our services adresses on your local network.
 To do so, you need to create the two following files in the `/etc/avahi/services` folder:
-`/etc/avahi/services/pixledserver.service` :
+
+`sudo nano /etc/avahi/services/pixledserver.service` :
 ```
 <?xml version="1.0" standalone='no'?>
 <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
@@ -58,7 +59,7 @@ To do so, you need to create the two following files in the `/etc/avahi/services
 </service-group>
 ```
 
-`/etc/avahi/services/pixledbroker.service` :
+`sudo nano /etc/avahi/services/pixledbroker.service` :
 ```
 <?xml version="1.0" standalone='no'?>
 <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
@@ -78,7 +79,20 @@ You can then check that everything work with `sudo systemctl status avahi-daemon
 Finally, run `sudo systemctl enable avahi-daemon`.
 This will make the Avahi service to start each time you boot your system.
 
-Optionnally, you can check that your services are well broadcast with the `avahi-browse` tool.
+Optionnally, you can check that your services are well broadcast with the `avahi-browse` tool. If you want to do so, check how to install it depending on your OS.
+You can launch this tool from any device connected to your local network.
+To test directly from the RPi (and Debian, Ubuntu...) :
+```
+sudo apt-get install avahi-utils
+```
+And then `avahi-browse _http._tcp` should output :
+```
++  wlan0 IPv4 PixLedServer                                  Web Site             local
+```
+And for `avahi-browse _mqtt._tcp` :
+```
++  wlan0 IPv4 PixLedBroker                                  _mqtt._tcp           local
+```
 
 ## Mosquitto
 [Mosquitto](https://mosquitto.org/) is an open-source software that implements the MQTT protocol. We will use it to install the MQTT broker, that is used to transmit messages such as devices switchs, color changes, and connection / disconnection.
@@ -90,7 +104,7 @@ sudo apt-get install mosquitto
 ```
 
 ### Configure
-Append the following lines to the file `/etc/mosquitto/mosquitto.conf` :
+Run `sudo nano /etc/mosquitto/mosquitto.conf` and append the following lines to the file :
 ```
 allow_anonymous true
 acl_file /etc/mosquitto/mosquitto.acl
@@ -102,7 +116,7 @@ listener 9001
 protocol websockets
 ```
 
-And create a file `/etc/mosquitto/mosquitto.acl` with the following content :
+Run `sudo nano /etc/mosquitto/mosquitto.acl` and copy / paste the following content :
 ```
 #Devices switch
 topic readwrite /devices/+/state/switch
@@ -130,14 +144,17 @@ To enable it at boot, run `sudo systemctl enable mosquitto`.
 The PixLed server is what corresponds to this repository.
 
 ### Dowload
-You can download the compiled .jar file from the [releases tabs](https://github.com/PixLed/PixLedServer/releases) or directly running `wget https://github.com/PixLed/PixLedServer/releases/download/v1.0.0/pixledserver-1.0-SNAPSHOT.jar`
-
-Then, run `mkdir /home/pi/pixled` and copy the .jar file to the created folder.
+You can download the compiled .jar file from the [releases tabs](https://github.com/PixLed/PixLedServer/releases) or directly running
+```
+wget https://github.com/PixLed/PixLedServer/releases/download/v1.0.0/pixledserver-1.0-SNAPSHOT.jar
+mkdir ~/pixled
+mv pixledserver-1.0-SNAPSHOT.jar ~/pixled
+```
 
 ### Run and enable
 This part requires extra steps, because this time you need to create your own systemd service file that will allow you to run the .jar as a service, for example to enable it at boot.
 
-To do so, just create the `/etc/systemd/system/pixledserver.service` :
+To do so, run `sudo nano /etc/systemd/system/pixledserver.service` and copy / paste the following content :
 ```
 [Unit]
 Description=PixLed Server
@@ -154,6 +171,8 @@ User=pi
 [Install]
 WantedBy=multi-user.target
 ```
+**Don't forget to modify the User field if you modified it.**
+
 You can now run the `pixledserver` with `sudo systemctl start pixledserver`, check its status with `sudo systemctl status pixledserver` and above all enable it at boot with `sudo systemctl enable pixledserver`.
 
 
