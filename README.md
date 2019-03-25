@@ -154,3 +154,6 @@ Please note that when you shutdown the pi unplugging it, some issues may occur a
 
 # App and modules
 If not done yet, you can now connect your ![PixLed Androïd app](https://github.com/PaulBreugnot/PixLedAndroid) and ![PixLed modules](https://github.com/PaulBreugnot/PixLedModule_Strip) to your server! :sheep: :rainbow:
+
+# LICENSE
+This software and all the PixLed tools are released under the [GNU General Public License v3.0](https://github.com/PixLed/PixLedServer/blob/master/LICENSE).
