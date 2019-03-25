@@ -171,7 +171,7 @@ User=pi
 [Install]
 WantedBy=multi-user.target
 ```
-**Don't forget to modify the User field if you modified it.**
+**Don't forget to modify the User and WorkingDirectory fields if you modified the `pi` user.**
 
 You can now run the `pixledserver` with `sudo systemctl start pixledserver`, check its status with `sudo systemctl status pixledserver` and above all enable it at boot with `sudo systemctl enable pixledserver`.
 
