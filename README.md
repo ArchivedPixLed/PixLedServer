@@ -21,8 +21,17 @@ The following tutorial will teach you how to setup the PixLedServer on a Raspber
 
 All the following commands can be run from terminals on the Pi, or from a SSH connection, as you prefer.
 
-## /!\ Important note /!\
+Don't forget to launch
+```
+sudo apt-get update
+sudo apt-get dist-upgrade
+```
+before installing the following packaged.
+
+## Note about mDNS
 For mysterious reasons, mDNS doesn't seem to work well when the Raspberry Pi / the server is connected on your local network using ethernet. So please prefer a wifi connection.
+
+However, notice that its usage is not mandatory. The RPi / server IP can also be configured manually on each PixLedDevice and in the PixLed app.
 
 ## Avahi
 [Avahi](https://en.wikipedia.org/wiki/Avahi_(software)) is a software that we allow devices (including led devices and the Androïd devices) to automatically find the MQTT broker and the HTTP server on your local network using mDNS.
